@@ -4,7 +4,7 @@ export const getTasks = async (req, res) => {
     try {
         const todos = await Tasks.find();
         if(todos.length === 0){
-            res.status(404).json({ message: "Nincs még feladat feltöltve" });
+            res.json({ message: "Nincs még feladat feltöltve" });
             return;
         }
         res.status(200).json(todos);
