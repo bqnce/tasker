@@ -1,3 +1,4 @@
+import { LoginComponent } from "../components/Login";
 import { Navbar } from "../components/Navbar";
 
 export const LoginPage = () => {
@@ -5,6 +6,7 @@ export const LoginPage = () => {
     <>
       <div className="h-screen w-screen bg-black text-white">
         <Navbar />
+        <LoginComponent />
       </div>
     </>
   );
