@@ -1,23 +1,49 @@
 import logo from "../assets/logo.png";
 import google from "../assets/google.svg";
 import { useState } from "react";
+import axios from "axios";
 
 export const LoginComponent = () => {
   const [loginWithUsername, setLoginWithUsername] = useState<boolean>(true);
   const [isUsername, setIsUsername] = useState<boolean>(false);
-  const [username, setUsername] = useState<string>('');
-  const [error, setError] = useState<string>('');
+  const [isPassword, setIsPassword] = useState<boolean>(false);
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   const handleSubmit = () => {
     setIsUsername(false);
+    setIsPassword(false);
+    setError("");
     if (username.length < 3) {
-      setError('Username must be at least 3 characters long');
+      setError("Username must be at least 3 characters long");
       return;
     }
-    setError('');
+    setError("");
     setIsUsername(true);
-    // Handle successful validation
-    console.log('Form submitted with username:', username);
+    setIsPassword(false);
+    if (password.length < 3 && password.length > 0) {
+      setError("Password must be at least 3 characters long");
+      return;
+    }
+    setError("");
+    setIsPassword(true);
+
+    if (isUsername && isPassword) {
+      axios.post("http://localhost:5000/api/auth/login", {username: username, password: password})
+      .then((res) => {
+        const token = res.data.token;
+        localStorage.setItem("accessToken", token);
+        window.location.href = "/dashboard";
+      })
+      .catch((err) => {console.log(err.response.data)})
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleSubmit();
+    }
   };
 
   return (
@@ -32,20 +58,36 @@ export const LoginComponent = () => {
           </header>
           {loginWithUsername ? (
             <div className="flex justify-center items-center flex-col gap-10 h-[50%] text-medium">
-                <input 
-                  type="text" 
-                  placeholder="Username" 
+              {isUsername ? (
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  className="bg-[#060606] p-3 rounded-xl outline-none hover:bg-[#080808] transition-colors duration-300"
+                />
+              ) : (
+                <input
+                  type="text"
+                  placeholder="Username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className={`bg-[#060606] p-3 rounded-xl outline-none hover:bg-[#080808] transition-colors duration-300 ${error ? 'border-red-500 border' : ''}`}
+                  onKeyDown={handleKeyDown}
+                  className={`bg-[#060606] p-3 rounded-xl outline-none hover:bg-[#080808] transition-colors duration-300 ${
+                    error ? "border-red-500 border" : ""
+                  }`}
                 />
-                {error && <span className="text-red-500 text-sm -mt-8">{error}</span>}
-                <button 
-                  onClick={handleSubmit}
-                  className="bg-[#0467ff] w-[50%] flex justify-center items-center p-3 rounded-xl hover:bg-[#1471ff] hover:text-[#d6d6d6] transition-color duration-300 text-white cursor-pointer"
-                >
-                    Continue
-                </button>
+              )}
+              {error && (
+                <span className="text-red-500 text-sm -mt-8">{error}</span>
+              )}
+              <button
+                onClick={handleSubmit}
+                className="bg-[#0467ff] w-[50%] flex justify-center items-center p-3 rounded-xl hover:bg-[#1471ff] hover:text-[#d6d6d6] transition-color duration-300 text-white cursor-pointer"
+              >
+                Continue
+              </button>
             </div>
           ) : (
             <div className="flex justify-center items-center flex-col gap-6 h-[50%]">
