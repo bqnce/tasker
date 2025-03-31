@@ -71,7 +71,7 @@ export const LoginComponent = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  className="bg-[#060606] p-3 rounded-xl outline-none hover:bg-[#080808] transition-colors duration-300"
+                  className="bg-[#060606] p-3 rounded-xl outline-none hover:bg-[#080808] transition-colors duration-300 border border-[#1a1a1a]"
                 />
               ) : (
                 <input
@@ -80,7 +80,7 @@ export const LoginComponent = () => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  className={`bg-[#060606] p-3 rounded-xl outline-none hover:bg-[#080808] transition-colors duration-300 ${
+                  className={`bg-[#060606] p-3 rounded-xl outline-none hover:bg-[#080808] transition-colors duration-300 border border-[#1a1a1a] ${
                     error ? "border-red-500 border" : ""
                   }`}
                 />
