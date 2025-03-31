@@ -1,5 +1,5 @@
 import logo from "../assets/logo.png";
-import { FloatingBlob } from "./Blob";
+import { FloatingBlob } from "./design/Blob";
 
 export const Navbar = () => {
   return (

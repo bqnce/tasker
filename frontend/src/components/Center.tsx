@@ -1,4 +1,4 @@
-import AnimatedHeading from "./AnimateHeading";
+import AnimatedHeading from "./design/AnimateHeading";
 export const Center = () => {
   return (
     <>

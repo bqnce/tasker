@@ -1,10 +1,10 @@
-import logo from "../assets/logo.png";
-import { FloatingBlob } from "./Blob";
+import logo from "../../assets/logo.png";
+import { FloatingBlob } from "../design/Blob";
 
 export const DashboardNav = () => {
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
-    window.location.href = "/login";
+    window.location.href = "/";
   };
   return (
     <>

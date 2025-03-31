@@ -30,13 +30,19 @@ export const LoginComponent = () => {
     setIsPassword(true);
 
     if (isUsername && isPassword) {
-      axios.post("http://localhost:5000/api/auth/login", {username: username, password: password})
-      .then((res) => {
-        const token = res.data.token;
-        localStorage.setItem("accessToken", token);
-        window.location.href = "/dashboard";
-      })
-      .catch((err) => {console.log(err.response.data)})
+      axios
+        .post("http://localhost:5000/api/auth/login", {
+          username: username,
+          password: password,
+        })
+        .then((res) => {
+          const token = res.data.token;
+          localStorage.setItem("accessToken", token);
+          window.location.href = "/dashboard";
+        })
+        .catch((err) => {
+          setError(err.response.data.message);
+        });
     }
   };
 
