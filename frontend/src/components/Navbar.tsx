@@ -19,7 +19,7 @@ export const Navbar = () => {
           </a>
           <a
             href="/register"
-            className="hover:text-[#d6d6d6] transition-color duration-300 bg-[#0f0f0f] rounded-md px-4 py-2 text-white ml-4 hover:bg-[#1a1a1a]"
+            className="hover:text-[#d6d6d6] transition-color duration-300 bg-[#1f1f1f] rounded-md px-4 py-2 text-white ml-4 hover:bg-[#1a1a1a]"
           >
             Sign Up
           </a>
